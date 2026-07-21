@@ -29,7 +29,9 @@ describe('demo seed', () => {
     const turnRows = valuesFor(operations, (values) => Array.isArray(values) && values.some((value) => value.ciphertext?.startsWith('encrypted:')));
     const safetyRows = valuesFor(operations, (values) => !Array.isArray(values) && values.category === 'demo_check_in');
 
-    expect(demoAccess).toEqual({ parentEmail: 'hkarthick439@gmail.com', parentPassword: 'UndercurrentDemo!2026', studentPin: '2468' });
+    expect(demoAccess).toEqual({ parentEmail: result.parent.email, parentPassword: result.parent.password, studentPin: '2468' });
+    expect(result.parent.email).toBeTruthy();
+    expect(result.parent.password).toBeTruthy();
     expect(result.students).toHaveLength(3);
     expect(result.students.every((student) => student.invitationUrl.startsWith('http://demo.local/student/invite/demo-'))).toBe(true);
     expect(studentRows.map((student) => student.name)).toEqual(['Ari', 'Bryn', 'Cora']);

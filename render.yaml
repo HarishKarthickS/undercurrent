@@ -4,7 +4,9 @@ services:
     runtime: node
     region: singapore
     plan: free
-    buildCommand: npm ci && VITE_API_BASE_URL= npm run build
+    # --include=dev is required: Render sets NODE_ENV=production, which would
+    # otherwise omit vite and other build-time tooling from npm ci.
+    buildCommand: npm ci --include=dev && VITE_API_BASE_URL= npm run build
     startCommand: npm run db:migrate && npm start
     healthCheckPath: /ready
     autoDeploy: true

@@ -36,8 +36,8 @@ import {
 const DEMO_PARENT = Object.freeze({
   id: '00000000-0000-4000-8000-00000000d002',
   householdId: '00000000-0000-4000-8000-00000000d001',
-  email: 'hkarthick439@gmail.com',
-  password: 'UndercurrentDemo!2026',
+  email: process.env.PARENT_TEST_EMAIL?.trim() || 'hkarthick439@gmail.com',
+  password: process.env.PARENT_TEST_PASSWORD || 'UndercurrentDemo!2026',
   displayName: 'Demo Parent'
 });
 const DEMO_PIN = '2468';
