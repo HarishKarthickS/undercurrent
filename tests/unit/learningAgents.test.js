@@ -45,6 +45,18 @@ describe('Pip companion instructions', () => {
     expect(buildCompanionInstructions({ scaffoldStage: 'hint', turnCount: 2 })).not.toContain('Include this disclosure naturally');
   });
 
+  it('falls back when assessment output is prose instead of schema JSON', async () => {
+    responsesCreate.mockResolvedValueOnce({ output_text: 'That is correct! The moon reflects sunlight.' });
+    const agents = createLearningAgents({ apiKey: 'test-key', model: 'test-model' });
+    await expect(agents.assess('The moon reflects sunlight.', 'Focus on ideas.')).resolves.toMatchObject({ topic: 'The moon reflects sunlight.', understanding: 2, confidence: 2, disengaged: false });
+  });
+
+  it('falls back when companion output is not JSON', async () => {
+    responsesCreate.mockResolvedValueOnce({ output_text: 'Plain prose without JSON.' });
+    const agents = createLearningAgents({ apiKey: 'test-key', model: 'test-model' });
+    await expect(agents.compose({ input: 'I watched clouds.', scaffoldStage: 'ask', turnCount: 1 })).resolves.toBe('Thank you for showing me how you are thinking. What small part would you teach me next?');
+  });
+
   it('keeps parent-advisor replies inside the same no-grades safety boundary', async () => {
     responsesCreate.mockResolvedValueOnce({ output_text: JSON.stringify({ message: 'Your child is brilliant and deserves an A+.' }) });
     const agents = createLearningAgents({ apiKey: 'test-key', model: 'test-model' });

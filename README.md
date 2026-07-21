@@ -2,6 +2,10 @@
 
 Undercurrent is a parent-visible learning companion in which a child teaches a curious character. Child turns are safety-screened before AI processing, regular evening-learning turns are encrypted at rest, and the parent dashboard receives topic-level signals rather than a report-card score.
 
+## Built with Codex and GPT-5.6
+
+This project was created end to end with **Codex** and **GPT-5.6**: product shape, implementation, local Docker workflows, and browser-based user testing of the parent and child flows. The same agent loop was used to iterate on bugs found while exercising the UI in the browser, not only unit tests.
+
 ## Quick start
 
 1. Copy `.env.example` to `.env` and set at least `DATABASE_URL` and `REDIS_URL`. Set `OPENAI_API_KEY`, `OPENAI_MODEL`, and a base64-encoded 32-byte `ENCRYPTION_KEY` to enable ordinary evening AI turns. For a host-side OpenAI-compatible proxy, set `OPENAI_BASE_URL`; Docker development uses `OPENAI_DOCKER_BASE_URL` because container loopback is not the host.

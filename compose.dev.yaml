@@ -11,6 +11,7 @@ services:
       REQUEST_TIMEOUT_MS: ${REQUEST_TIMEOUT_MS:-90000}
       CONNECTION_TIMEOUT_MS: ${CONNECTION_TIMEOUT_MS:-90000}
       OPENAI_BASE_URL: ${OPENAI_DOCKER_BASE_URL:-http://host.docker.internal:8787/v1}
+      DISABLE_DAILY_RITUAL_LIMIT: "true"
       TRUST_PROXY: "false"
     volumes: [.:/workspace, /workspace/node_modules]
   web:

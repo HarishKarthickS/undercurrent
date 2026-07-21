@@ -31,6 +31,7 @@ export function loadConfig(env = process.env) {
     openaiModel: env.OPENAI_MODEL?.trim() || 'gpt-5.6',
     aiRequestTimeout: positiveInteger(env.AI_REQUEST_TIMEOUT_MS, 8_000, 'AI_REQUEST_TIMEOUT_MS'),
     aiDailyTurnLimit: positiveInteger(env.AI_DAILY_TURN_LIMIT, 24, 'AI_DAILY_TURN_LIMIT'),
+    disableDailyRitualLimit: boolean(env.DISABLE_DAILY_RITUAL_LIMIT, nodeEnv !== 'production'),
     parentAdvisorDailyTurnLimit: positiveInteger(env.PARENT_ADVISOR_DAILY_TURN_LIMIT, 12, 'PARENT_ADVISOR_DAILY_TURN_LIMIT'),
     encryptionKey: env.ENCRYPTION_KEY?.trim() || null,
     encryptionKeyVersion: env.ENCRYPTION_KEY_VERSION?.trim() || 'v1',
