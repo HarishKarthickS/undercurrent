@@ -1,0 +1,6 @@
+import { index, integer, jsonb, pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+
+export const outboxStatus = pgEnum('outbox_status', ['pending', 'processing', 'completed', 'dead_letter']);
+export const outboxEvents = pgTable('outbox_events', {
+  id: uuid('id').primaryKey().defaultRandom(), idempotencyKey: text('idempotency_key').notNull().unique(), eventType: text('event_type').notNull(), aggregateType: text('aggregate_type').notNull(), aggregateId: text('aggregate_id').notNull(), payload: jsonb('payload').notNull().default({}), status: outboxStatus('status').notNull().default('pending'), attempts: integer('attempts').notNull().default(0), availableAt: timestamp('available_at', { withTimezone: true }).notNull().defaultNow(), lockedAt: timestamp('locked_at', { withTimezone: true }), completedAt: timestamp('completed_at', { withTimezone: true }), lastError: text('last_error'), createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(), updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow()
+}, (table) => [index('idx_outbox_status_available').on(table.status, table.availableAt), index('idx_outbox_aggregate').on(table.aggregateType, table.aggregateId, table.createdAt)]);

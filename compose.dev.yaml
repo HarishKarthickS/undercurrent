@@ -1,0 +1,28 @@
+services:
+  api:
+    build: { target: development }
+    command: ["npm", "run", "dev:server"]
+    environment:
+      DATABASE_URL: postgresql://undercurrent:${POSTGRES_PASSWORD:-undercurrent}@postgres:5432/undercurrent
+      NODE_ENV: development
+      PORT: 3001
+      ALLOWED_ORIGINS: http://localhost:5173
+      REDIS_URL: redis://redis:6379
+      REQUEST_TIMEOUT_MS: ${REQUEST_TIMEOUT_MS:-90000}
+      CONNECTION_TIMEOUT_MS: ${CONNECTION_TIMEOUT_MS:-90000}
+      OPENAI_BASE_URL: ${OPENAI_DOCKER_BASE_URL:-http://host.docker.internal:8787/v1}
+      TRUST_PROXY: "false"
+    volumes: [.:/workspace, /workspace/node_modules]
+  web:
+    build: { context: ., dockerfile: docker/api/Dockerfile, target: development }
+    working_dir: /workspace
+    command: ["npm", "run", "dev:client", "--", "--host", "0.0.0.0"]
+    environment:
+      VITE_API_PROXY_TARGET: http://api:3001
+    volumes: [.:/workspace, /workspace/node_modules]
+    ports: ["5173:5173"]
+    depends_on:
+      api: { condition: service_started }
+    networks: [internal]
+  gateway:
+    profiles: ["production"]

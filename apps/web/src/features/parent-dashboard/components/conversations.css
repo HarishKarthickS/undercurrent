@@ -1,0 +1,10 @@
+.conversation-layout { display:grid; gap:1rem; grid-template-columns:minmax(15rem,.72fr) minmax(0,1.28fr); }
+.conversation-list { display:grid; align-content:start; gap:.6rem; max-height:38rem; overflow:auto; padding-right:.25rem; }
+.conversation-list>button { display:grid; gap:.3rem; border:1px solid #c9d8c7; border-radius:1rem; background:#fffdf7; padding:1rem; text-align:left; }
+.conversation-list>button.active { border:2px solid #18352e; background:#edf7e8; box-shadow:3px 3px 0 #18352e; }
+.conversation-list small,.conversation-turns small { color:#637166; font-size:.75rem; }
+.conversation-live,.conversation-complete { width:max-content; border-radius:999px; padding:.2rem .5rem; font-size:.7rem; font-weight:800; }
+.conversation-live { background:#dff5e1; color:#397250; }.conversation-complete { background:#edf0ed; color:#5d685f; }
+.conversation-thread { min-height:30rem; }.conversation-thread-heading { display:flex; align-items:start; justify-content:space-between; gap:1rem; padding-bottom:1rem; border-bottom:1px solid #d6ddd2; }.conversation-thread-heading h2 { margin:.25rem 0 0; }
+.conversation-turns { display:grid; gap:.75rem; max-height:31rem; overflow:auto; padding-top:1rem; }.conversation-turns article { max-width:88%; border-radius:1rem 1rem 1rem .3rem; background:#f1f8ec; padding:.75rem 1rem; }.conversation-turns article.child { justify-self:end; border-radius:1rem 1rem .3rem 1rem; background:#fff0bd; }.conversation-turns p { margin:.25rem 0 .45rem; line-height:1.5; }.conversation-empty { color:#637166; }
+@media (max-width: 900px) { .conversation-layout { grid-template-columns:1fr; }.conversation-list { max-height:18rem; }.conversation-thread { min-height:0; } }

@@ -1,0 +1,8 @@
+{
+  "name": "@undercurrent/api",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#api/*": "./src/*"
+  }
+}

@@ -1,0 +1,5 @@
+const uuid = { type: 'string', format: 'uuid' };
+export const startSessionSchema = { body: { type: 'object', additionalProperties: false, required: ['studentId'], properties: { studentId: uuid, type: { type: 'string', enum: ['morning', 'evening'] }, mode: { type: 'string', enum: ['quest', 'chat', 'activity'] }, questId: { type: 'string', minLength: 1, maxLength: 160 } } } };
+export const curiosityTrailParamsSchema = { type: 'object', additionalProperties: false, required: ['studentId'], properties: { studentId: uuid } };
+export const turnSessionSchema = { body: { type: 'object', additionalProperties: false, required: ['sessionId', 'input', 'idempotencyKey'], properties: { sessionId: uuid, input: { type: 'string', minLength: 1, maxLength: 4000 }, inputMode: { type: 'string', enum: ['typed', 'voice', 'tap'] }, idempotencyKey: { type: 'string', minLength: 1, maxLength: 128 } } } };
+export const endSessionSchema = { body: { type: 'object', additionalProperties: false, required: ['sessionId'], properties: { sessionId: uuid, reason: { type: 'string', maxLength: 64 } } } };

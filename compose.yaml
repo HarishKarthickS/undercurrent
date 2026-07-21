@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: undercurrent
+      POSTGRES_USER: undercurrent
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-undercurrent}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U undercurrent -d undercurrent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    networks: [internal]
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes: [redis-data:/data]
+    networks: [internal]
+  migrate:
+    build: { context: ., dockerfile: docker/api/Dockerfile, target: runtime }
+    command: ["npm", "run", "db:migrate"]
+    environment:
+      DATABASE_URL: postgresql://undercurrent:${POSTGRES_PASSWORD:-undercurrent}@postgres:5432/undercurrent
+      NODE_ENV: production
+      DEPLOYMENT_MODE: closed_demo
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [internal]
+    restart: "no"
+  api:
+    build: { context: ., dockerfile: docker/api/Dockerfile, target: runtime }
+    environment:
+      DATABASE_URL: postgresql://undercurrent:${POSTGRES_PASSWORD:-undercurrent}@postgres:5432/undercurrent
+      NODE_ENV: production
+      DEPLOYMENT_MODE: closed_demo
+      DEMO_TERMS_VERSION: ${DEMO_TERMS_VERSION:-closed-demo-v1}
+      DEMO_TERMS_SHA256: ${DEMO_TERMS_SHA256:?DEMO_TERMS_SHA256 is required}
+      PORT: 3001
+      ALLOWED_ORIGINS: http://localhost
+      REDIS_URL: redis://redis:6379
+      REQUEST_TIMEOUT_MS: ${REQUEST_TIMEOUT_MS:-90000}
+      CONNECTION_TIMEOUT_MS: ${CONNECTION_TIMEOUT_MS:-90000}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_DOCKER_BASE_URL:-http://host.docker.internal:8787/v1}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.6}
+      AI_REQUEST_TIMEOUT_MS: ${AI_REQUEST_TIMEOUT_MS:-45000}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+      ENCRYPTION_KEY_VERSION: ${ENCRYPTION_KEY_VERSION:-v1}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-Undercurrent <no-reply@example.com>}
+      PUBLIC_APP_URL: ${PUBLIC_APP_URL:-http://localhost}
+      TRUST_PROXY: "true"
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+    networks: [internal]
+  gateway:
+    build: { context: ., dockerfile: docker/web/Dockerfile }
+    ports: ["${WEB_PORT:-8080}:8080"]
+    depends_on:
+      api: { condition: service_started }
+    networks: [internal]
+networks:
+  internal: { driver: bridge }
+volumes:
+  postgres-data:
+  redis-data:

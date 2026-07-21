@@ -1,0 +1,72 @@
+{
+  "name": "undercurrent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "imports": {
+    "#api/*": "./apps/api/src/*",
+    "#web/*": "./apps/web/src/*",
+    "#tests/*": "./tests/*"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "node scripts/lint-js.js",
+    "format:check": "node scripts/format-check.js",
+    "typecheck": "node scripts/typecheck-js.js",
+    "audit:prod": "npm audit --omit=dev",
+    "secret:scan": "node scripts/secret-scan.js",
+    "sbom": "npm sbom --sbom-format cyclonedx --json",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run coverage && npm run build",
+    "ci": "npm ci && npm run lint && npm run format:check && npm run typecheck && npm run coverage && npm run build && npm run audit:prod && npm run secret:scan && npm run sbom",
+    "start": "node apps/api/src/bootstrap/startServer.js",
+    "dev:server": "node --watch apps/api/src/bootstrap/startServer.js",
+    "dev:client": "vite --config apps/web/vite.config.js",
+    "seed": "docker compose -f compose.yaml -f compose.dev.yaml exec -T -e ENABLE_DEV_FIXTURES=true api node scripts/seed-demo.js",
+    "seed:direct": "node scripts/seed-demo.js",
+    "retention:run": "node scripts/retention.js",
+    "qa:smoke": "vitest run tests/unit tests/component tests/integration tests/architecture",
+    "build": "vite build --config apps/web/vite.config.js",
+    "db:generate": "drizzle-kit generate --config apps/api/drizzle.config.js",
+    "db:migrate": "node apps/api/src/platform/database/runMigrations.js",
+    "db:studio": "drizzle-kit studio --config apps/api/drizzle.config.js",
+    "docker:dev": "docker compose -f compose.yaml -f compose.dev.yaml up --build",
+    "docker:up": "docker compose up --build"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/coverage-v8": "^4.0.18",
+    "drizzle-kit": "^0.31.10",
+    "jsdom": "^29.1.1",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.1.5",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/csrf-protection": "^8.0.0",
+    "@fastify/helmet": "^13.1.0",
+    "@fastify/rate-limit": "^11.1.0",
+    "@fastify/redis": "^8.0.0",
+    "@fastify/static": "^8.2.0",
+    "@fastify/under-pressure": "^9.1.0",
+    "argon2": "^0.44.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "fastify": "^5.10.0",
+    "jose": "^6.2.3",
+    "nodemailer": "^9.0.3",
+    "openai": "^6.48.0",
+    "pg": "^8.22.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  }
+}
