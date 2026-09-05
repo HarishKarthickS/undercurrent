@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;500;600;700&display=swap');
 @import "tailwindcss";
+@import "./skins.css";
 
 @theme { --font-display:"Fredoka",sans-serif; --font-sans:"DM Sans",sans-serif; --color-ink:#18352e; --color-muted:#587068; --color-paper:#fffdf8; --color-cream:#fffaf0; --color-mint:#dff4df; --color-leaf:#5aaa69; --color-lime:#bce85c; --color-sun:#ffd75e; --color-coral:#ff8067; --color-sky:#d8efff; --color-line:#d5e4d6; --shadow-pip:0 8px 0 rgb(24 53 46 / .12); }
 

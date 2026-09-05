@@ -1,0 +1,615 @@
+/* Two product skins. Child trail stays Fredoka / lime / coral / tactile.
+   Parent evening is a dim reading room: Newsreader + Atkinson, brass lamp, no toy chrome. */
+
+@layer components {
+  .app-shell-student {
+    --trail-paper: #eef6d8;
+    position: relative;
+    background:
+      radial-gradient(circle at 12% 8%, #fff4b0 0 8%, transparent 28%),
+      radial-gradient(circle at 92% 18%, #c9ecff 0 7%, transparent 26%),
+      linear-gradient(180deg, #f7fbe8 0%, #e4f0c9 100%);
+    padding-inline: clamp(.6rem, 2vw, 1.4rem);
+    padding-block: .6rem 1.4rem;
+  }
+  .app-shell-student::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .22;
+    background-image: radial-gradient(#18352e 0.7px, transparent .8px);
+    background-size: 14px 14px;
+    z-index: 0;
+  }
+  .app-shell-student .app-frame { position: relative; z-index: 1; }
+  .app-shell-student .topbar {
+    min-height: 2.4rem;
+    margin-bottom: .65rem;
+    padding: .15rem .2rem;
+  }
+  .app-shell-student .brand { font-size: 1.05rem; }
+  .app-shell-student .route-label { display: none; }
+  .app-shell-student .topbar-start {
+    min-height: 2.5rem;
+    padding: .35rem .7rem;
+    border: 2px solid #18352e;
+    border-radius: 999px;
+    background: #fffdf8;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 #18352e;
+  }
+  .app-shell-student h1,
+  .app-shell-student .today-copy h1,
+  .app-shell-student .kid-copy h1,
+  .app-shell-student .talk-pip-header h1,
+  .app-shell-student .morning-arrive h1,
+  .app-shell-student .launch-card h1 {
+    font-family: Fredoka, sans-serif;
+    letter-spacing: -.045em;
+  }
+  .app-shell-student .world-bottom-nav {
+    border-width: 3px;
+    box-shadow: 5px 5px 0 #18352e;
+  }
+  .app-shell-student .tap-grid button,
+  .app-shell-student .mic-button,
+  .app-shell-student .mood-orbit button,
+  .app-shell-student .world-primary {
+    min-height: 3.6rem;
+    font-size: 1.05rem;
+  }
+}
+
+@layer components {
+  .app-shell-parent {
+    --eve-night: #12151c;
+    --eve-panel: #171b23;
+    --eve-card: #1f2530;
+    --eve-raised: #272e3b;
+    --eve-line: rgba(214, 196, 154, .16);
+    --eve-text: #ece6d8;
+    --eve-muted: #9b9488;
+    --eve-lamp: #d4b483;
+    --eve-brass: #c4924a;
+    --eve-moss: #7d9a8c;
+    --eve-ember: #c4845a;
+    --eve-serif: 'Newsreader', serif;
+    --eve-sans: 'Atkinson Hyperlegible', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: var(--eve-text);
+    background:
+      radial-gradient(ellipse at 18% 0%, rgba(212, 180, 131, .08), transparent 42%),
+      radial-gradient(ellipse at 88% 100%, rgba(125, 154, 140, .07), transparent 40%),
+      var(--eve-night);
+    font-family: var(--eve-sans);
+  }
+  .app-shell-parent .app-frame {
+    max-width: none;
+    min-height: 100vh;
+  }
+  .app-shell-parent .topbar {
+    min-height: 3.25rem;
+    margin: 0;
+    padding: .65rem 1.25rem;
+    border-bottom: 1px solid var(--eve-line);
+    background: rgba(18, 21, 28, .88);
+  }
+  .app-shell-parent .brand {
+    color: var(--eve-text);
+    font-family: var(--eve-serif);
+    font-weight: 500;
+    letter-spacing: .01em;
+  }
+  .app-shell-parent .brand-mark {
+    border: 1px solid var(--eve-lamp);
+    border-radius: 6px;
+    background: #2a2418;
+    color: var(--eve-lamp);
+    box-shadow: none;
+  }
+  .app-shell-parent .route-label,
+  .app-shell-parent .topbar-start,
+  .app-shell-parent .header-signout {
+    color: var(--eve-muted);
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: .04em;
+  }
+  .app-shell-parent .topbar-start:hover,
+  .app-shell-parent .header-signout:hover { color: var(--eve-lamp); }
+  .app-shell-parent .route-label {
+    padding-right: .85rem;
+    border-right: 1px solid var(--eve-line);
+    text-transform: uppercase;
+    font-size: .68rem;
+  }
+  .app-shell-parent h1,
+  .app-shell-parent h2,
+  .app-shell-parent h3,
+  .app-shell-parent .font-display,
+  .app-shell-parent .hub-family strong,
+  .app-shell-parent .hub-welcome h1,
+  .app-shell-parent .hub-page-heading h1 {
+    font-family: var(--eve-serif);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    letter-spacing: -.015em;
+    color: var(--eve-text);
+  }
+  .app-shell-parent button,
+  .app-shell-parent input,
+  .app-shell-parent select,
+  .app-shell-parent textarea {
+    font-family: var(--eve-sans);
+  }
+  .app-shell-parent button:focus-visible,
+  .app-shell-parent input:focus-visible,
+  .app-shell-parent select:focus-visible,
+  .app-shell-parent textarea:focus-visible {
+    outline: 2px solid var(--eve-lamp);
+    outline-offset: 3px;
+  }
+
+  .app-shell-parent .parent-hub {
+    display: grid;
+    overflow: hidden;
+    min-height: calc(100vh - 3.25rem);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  @media (min-width: 1024px) {
+    .app-shell-parent .parent-hub { grid-template-columns: 13.5rem minmax(0, 1fr); }
+  }
+  .app-shell-parent .hub-rail {
+    min-height: auto;
+    padding: 1.25rem 1rem 1.5rem;
+    color: var(--eve-text);
+    background: var(--eve-panel);
+    border-right: 1px solid var(--eve-line);
+  }
+  .app-shell-parent .hub-family {
+    gap: .85rem;
+    padding: 0 0 1.1rem;
+    border-bottom: 1px solid var(--eve-line);
+  }
+  .app-shell-parent .hub-family > span {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--eve-line);
+    background: #2a2418;
+    color: var(--eve-lamp);
+    font-family: var(--eve-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .app-shell-parent .hub-family small { color: var(--eve-muted); letter-spacing: .12em; text-transform: uppercase; font-size: .62rem; }
+  .app-shell-parent .hub-family strong { font-size: 1.05rem; }
+  .app-shell-parent .profile-switcher { color: var(--eve-muted); }
+  .app-shell-parent .profile-switcher select {
+    border: 1px solid var(--eve-line);
+    background: var(--eve-card);
+    color: var(--eve-text);
+    font-weight: 400;
+  }
+  .app-shell-parent .hub-rail nav button {
+    gap: .7rem;
+    border-radius: 0;
+    padding: .55rem .35rem;
+    color: var(--eve-muted);
+    font-weight: 400;
+    letter-spacing: .02em;
+    border-left: 2px solid transparent;
+  }
+  .app-shell-parent .hub-rail nav button:hover {
+    background: transparent;
+    color: var(--eve-text);
+  }
+  .app-shell-parent .hub-rail nav button.active {
+    background: transparent;
+    color: var(--eve-lamp);
+    box-shadow: none;
+    border-left-color: var(--eve-lamp);
+  }
+  .app-shell-parent .hub-rail nav button > .app-icon {
+    background: transparent;
+    color: inherit;
+  }
+  .app-shell-parent .hub-rail nav button.active > .app-icon { background: transparent; }
+  .app-shell-parent .hub-refresh {
+    margin-top: auto;
+    border: 1px solid var(--eve-line);
+    border-radius: 4px;
+    color: var(--eve-muted);
+    font-weight: 400;
+    background: transparent;
+  }
+  .app-shell-parent .hub-main {
+    padding: 1.5rem 1.35rem 6rem;
+    background:
+      linear-gradient(180deg, rgba(212, 180, 131, .05), transparent 18%),
+      var(--eve-night);
+  }
+  @media (min-width: 640px) { .app-shell-parent .hub-main { padding: 2rem 2.4rem 3rem; } }
+  .app-shell-parent .hub-topline { color: var(--eve-muted); }
+  .app-shell-parent .hub-live {
+    background: transparent;
+    color: var(--eve-moss);
+    border: 1px solid rgba(125, 154, 140, .35);
+    font-weight: 400;
+  }
+  .app-shell-parent .hub-topline > button {
+    border: 1px solid var(--eve-line);
+    background: var(--eve-card);
+    color: var(--eve-text);
+  }
+  .app-shell-parent .hub-topline b { color: var(--eve-ember); }
+  .app-shell-parent .hub-kicker {
+    color: var(--eve-lamp);
+    font-weight: 700;
+    letter-spacing: .16em;
+  }
+  .app-shell-parent .hub-welcome > div > p:not(.hub-kicker),
+  .app-shell-parent .hub-page-heading > p:not(.hub-kicker) {
+    color: var(--eve-muted);
+    line-height: 1.65;
+    max-width: 38rem;
+  }
+  .app-shell-parent .hub-welcome h1,
+  .app-shell-parent .hub-page-heading h1 {
+    font-size: clamp(1.85rem, 3.4vw, 2.7rem);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+  }
+  .app-shell-parent .hub-private {
+    border: 1px solid var(--eve-line);
+    background: transparent;
+    color: var(--eve-moss);
+    font-weight: 400;
+  }
+  .app-shell-parent .hub-card,
+  .app-shell-parent .hub-panel,
+  .app-shell-parent .advisor-page,
+  .app-shell-parent .parent-sheet,
+  .app-shell-parent .children-directory,
+  .app-shell-parent .setup-card,
+  .app-shell-parent .profile-modal {
+    border: 1px solid var(--eve-line);
+    border-radius: 10px;
+    background: var(--eve-card);
+    box-shadow: none;
+    color: var(--eve-text);
+  }
+  .app-shell-parent .hub-card h2,
+  .app-shell-parent .hub-card h3,
+  .app-shell-parent .hub-panel h2 { color: var(--eve-text); }
+  .app-shell-parent .hub-card p:not(.hub-kicker),
+  .app-shell-parent .hub-panel > p:not(.hub-kicker) { color: var(--eve-muted); }
+
+  .app-shell-parent .evening-signals {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--eve-line);
+    border-radius: 8px;
+    background: rgba(31, 37, 48, .55);
+  }
+  @media (min-width: 720px) { .app-shell-parent .evening-signals { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .app-shell-parent .evening-signals article {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    padding: .9rem 1rem 1rem;
+    background: transparent;
+    box-shadow: inset -1px 0 0 var(--eve-line);
+  }
+  .app-shell-parent .evening-signals article:nth-child(2n) { box-shadow: none; }
+  @media (min-width: 720px) {
+    .app-shell-parent .evening-signals article { box-shadow: inset -1px 0 0 var(--eve-line); }
+    .app-shell-parent .evening-signals article:last-child { box-shadow: none; }
+  }
+  .app-shell-parent .evening-signals span {
+    color: var(--eve-muted);
+    font-size: .66rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .app-shell-parent .evening-signals strong {
+    font-family: var(--eve-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--eve-lamp);
+  }
+
+  .app-shell-parent .dashboard-next-action,
+  .app-shell-parent .hub-feature {
+    display: grid;
+    gap: 1rem;
+    border: 1px solid var(--eve-line);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(212, 180, 131, .08), var(--eve-card));
+    box-shadow: none;
+    padding: 1.25rem 1.35rem;
+  }
+  .app-shell-parent .dashboard-next-action.safety,
+  .app-shell-parent .hub-feature.safety {
+    background: linear-gradient(180deg, rgba(196, 132, 90, .14), var(--eve-card));
+  }
+  .app-shell-parent .dashboard-next-action h2,
+  .app-shell-parent .hub-feature h2 {
+    font-size: 1.45rem;
+    line-height: 1.2;
+  }
+  .app-shell-parent .dashboard-next-action p:not(.hub-kicker),
+  .app-shell-parent .hub-feature p:not(.hub-kicker) { color: var(--eve-muted); }
+  .app-shell-parent .dashboard-next-action > span,
+  .app-shell-parent .hub-feature .hub-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    background: #2a2418;
+    color: var(--eve-lamp);
+  }
+  .app-shell-parent .hub-primary,
+  .app-shell-parent .hub-feature button {
+    margin-top: .4rem;
+    border: 1px solid var(--eve-brass);
+    border-radius: 999px;
+    background: #2a2418;
+    color: var(--eve-lamp);
+    box-shadow: none;
+    font-weight: 700;
+  }
+  .app-shell-parent .hub-primary:hover { transform: none; background: #352c1c; }
+  .app-shell-parent .hub-secondary {
+    border: 1px solid var(--eve-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--eve-text);
+  }
+  .app-shell-parent .hub-secondary:hover { background: var(--eve-raised); }
+  .app-shell-parent .hub-link { color: var(--eve-lamp); text-decoration-color: rgba(212, 180, 131, .45); }
+  .app-shell-parent .hub-notice {
+    background: rgba(125, 154, 140, .12);
+    color: var(--eve-moss);
+  }
+  .app-shell-parent .dashboard-setup-nudge {
+    border: 1px dashed var(--eve-line);
+    background: rgba(42, 36, 24, .55);
+  }
+  .app-shell-parent .dashboard-setup-nudge h2 { color: var(--eve-text); }
+  .app-shell-parent .dashboard-setup-nudge p:not(.hub-kicker) { color: var(--eve-muted); }
+  .app-shell-parent .dashboard-conversation,
+  .app-shell-parent .conversation-card,
+  .app-shell-parent .digest-card,
+  .app-shell-parent .goal-card,
+  .app-shell-parent .goal-editor,
+  .app-shell-parent .family-handoff,
+  .app-shell-parent .advisor-side {
+    background: var(--eve-raised);
+  }
+  .app-shell-parent .dashboard-conversation > p:not(.hub-kicker) {
+    font-family: var(--eve-serif);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: var(--eve-text);
+  }
+  .app-shell-parent .dashboard-recent li,
+  .app-shell-parent .insight-list article,
+  .app-shell-parent .family-glance-list button,
+  .app-shell-parent .inbox-feed article,
+  .app-shell-parent .device-list article,
+  .app-shell-parent .parent-toggle,
+  .app-shell-parent .time-grid label,
+  .app-shell-parent .choice-stack label,
+  .app-shell-parent .topic-detail-list > button,
+  .app-shell-parent .ritual-detail-list article {
+    border-color: var(--eve-line);
+    background: var(--eve-panel);
+    color: var(--eve-text);
+  }
+  .app-shell-parent .dashboard-recent li > span,
+  .app-shell-parent .family-glance-list button > span,
+  .app-shell-parent .ritual-detail-list article > span {
+    background: #2a2418;
+    color: var(--eve-lamp);
+  }
+  .app-shell-parent .family-glance {
+    border-color: var(--eve-line);
+    background: transparent;
+  }
+  .app-shell-parent .family-glance-list button.active {
+    border: 1px solid var(--eve-lamp);
+    background: #2a2418;
+    box-shadow: none;
+  }
+  .app-shell-parent .family-glance-list button:hover {
+    border-color: var(--eve-lamp);
+    background: var(--eve-raised);
+  }
+  .app-shell-parent .insight-pill {
+    background: rgba(125, 154, 140, .16);
+    color: var(--eve-moss);
+    font-weight: 700;
+  }
+  .app-shell-parent .insight-pill.gentle_revisit {
+    background: rgba(196, 160, 106, .16);
+    color: var(--eve-lamp);
+  }
+  .app-shell-parent .effort-panel {
+    background: #141820;
+    color: var(--eve-text);
+  }
+  .app-shell-parent .effort-panel .hub-kicker { color: var(--eve-lamp); }
+  .app-shell-parent .effort-note { background: rgba(255, 255, 255, .04); }
+  .app-shell-parent .hub-empty { background: var(--eve-panel); }
+  .app-shell-parent .hub-empty h2,
+  .app-shell-parent .hub-empty h3 { color: var(--eve-text); }
+  .app-shell-parent .hub-empty p { color: var(--eve-muted); }
+  .app-shell-parent .insight-conversation > div p,
+  .app-shell-parent .family-prompt-list p {
+    background: var(--eve-panel);
+    color: var(--eve-text);
+    border-left: 2px solid var(--eve-lamp);
+    border-radius: 0 8px 8px 0;
+  }
+  .app-shell-parent .detail-filter button,
+  .app-shell-parent .advisor-starters button {
+    border: 1px solid var(--eve-line);
+    background: transparent;
+    color: var(--eve-muted);
+    border-radius: 999px;
+  }
+  .app-shell-parent .detail-filter button.active {
+    border-color: var(--eve-lamp);
+    background: #2a2418;
+    color: var(--eve-lamp);
+  }
+  .app-shell-parent .advisor-transcript {
+    background: var(--eve-panel);
+  }
+  .app-shell-parent .advisor-transcript article {
+    background: var(--eve-card);
+    box-shadow: none;
+  }
+  .app-shell-parent .advisor-transcript article.advisor {
+    background: #2a2418;
+  }
+  .app-shell-parent .field-label { color: var(--eve-text); }
+  .app-shell-parent .field-label input,
+  .app-shell-parent .field-label select,
+  .app-shell-parent .field-label textarea,
+  .app-shell-parent .time-grid input,
+  .app-shell-parent .parent-select select,
+  .app-shell-parent .goal-fields input,
+  .app-shell-parent .goal-fields select {
+    border: 1px solid var(--eve-line);
+    background: var(--eve-night);
+    color: var(--eve-text);
+  }
+  .app-shell-parent .field-label input:focus,
+  .app-shell-parent .parent-select select:focus {
+    border-color: var(--eve-lamp);
+    box-shadow: 0 0 0 3px rgba(212, 180, 131, .18);
+  }
+  .app-shell-parent .saved-dot {
+    background: rgba(125, 154, 140, .14);
+    color: var(--eve-moss);
+  }
+  .app-shell-parent .hub-mobile-nav {
+    border: 1px solid var(--eve-line);
+    background: rgba(18, 21, 28, .94);
+    box-shadow: none;
+  }
+  .app-shell-parent .hub-mobile-nav button { color: var(--eve-muted); }
+  .app-shell-parent .hub-mobile-nav button.active {
+    background: #2a2418;
+    color: var(--eve-lamp);
+  }
+  .app-shell-parent .children-directory-header,
+  .app-shell-parent .profile-modal-header { border-color: var(--eve-line); }
+  .app-shell-parent .children-profile-card,
+  .app-shell-parent .profile-chip,
+  .app-shell-parent .student-pick,
+  .app-shell-parent .band-chooser button,
+  .app-shell-parent .rhythm-choices button {
+    border-color: var(--eve-line);
+    background: var(--eve-panel);
+    color: var(--eve-text);
+    box-shadow: none;
+  }
+  .app-shell-parent .children-profile-card:hover,
+  .app-shell-parent .rhythm-choices button.selected,
+  .app-shell-parent .band-chooser button.selected {
+    border-color: var(--eve-lamp);
+    background: #2a2418;
+    box-shadow: none;
+  }
+  .app-shell-parent .children-profile-initial { background: #2a2418; color: var(--eve-lamp); }
+  .app-shell-parent .setup-story,
+  .app-shell-parent .onboarding-manifesto,
+  .app-shell-parent .trail-setup .setup-story {
+    border: 1px solid var(--eve-line);
+    background: linear-gradient(160deg, #1a2220, #12151c);
+    box-shadow: none;
+  }
+  .app-shell-parent .setup-checklist {
+    border: 1px solid var(--eve-line);
+    background: var(--eve-card);
+    box-shadow: none;
+  }
+  .app-shell-parent .setup-checklist p:not(.hub-kicker) { color: var(--eve-muted); }
+  .app-shell-parent .primary-button,
+  .app-shell-parent .children-add-button {
+    border: 1px solid var(--eve-brass);
+    background: #2a2418;
+    color: var(--eve-lamp);
+    box-shadow: none;
+  }
+  .app-shell-parent .secondary-button {
+    border: 1px solid var(--eve-line);
+    background: transparent;
+    color: var(--eve-text);
+    box-shadow: none;
+  }
+  .app-shell-parent .conversation-list > button {
+    border-color: var(--eve-line);
+    background: var(--eve-panel);
+    color: var(--eve-text);
+  }
+  .app-shell-parent .conversation-list > button.active {
+    border-color: var(--eve-lamp);
+    background: #2a2418;
+    box-shadow: none;
+  }
+  .app-shell-parent .conversation-turns article {
+    background: var(--eve-panel);
+    color: var(--eve-text);
+  }
+  .app-shell-parent .conversation-turns article.child { background: #2a2418; }
+  .app-shell-parent .conversation-live {
+    background: rgba(125, 154, 140, .16);
+    color: var(--eve-moss);
+  }
+  .app-shell-parent .conversation-complete {
+    background: var(--eve-raised);
+    color: var(--eve-muted);
+  }
+  .app-shell-parent .conversation-thread-heading,
+  .app-shell-parent .consent-recaps { border-color: var(--eve-line); }
+  .app-shell-parent .topic-detail-list > button.active {
+    border: 1px solid var(--eve-lamp);
+    background: #2a2418;
+    box-shadow: none;
+  }
+  .app-shell-parent .inbox-safety { border-color: var(--eve-ember); background: rgba(196, 132, 90, .1); }
+}
+
+/* Landing preview of the parent evening skin (not the child toy UI). */
+@layer components {
+  .fg-device-parent {
+    background: #171b23;
+    color: #ece6d8;
+  }
+  .fg-device-parent .fg-device-top,
+  .fg-device-parent .fg-device-note { color: #9b9488; }
+  .fg-device-parent .fg-device-label { color: #d4b483; }
+  .fg-device-parent h3 { color: #ece6d8; font-family: 'Newsreader', serif; font-weight: 500; }
+  .fg-parent-card {
+    background: #1f2530;
+    box-shadow: inset 0 0 0 1px rgba(214, 196, 154, .16);
+  }
+  .fg-parent-card p,
+  .fg-parent-keep p { color: #9b9488; }
+  .fg-parent-card strong { font-family: 'Newsreader', serif; color: #ece6d8; }
+  .fg-parent-rhythm i { background: #2a2418; }
+  .fg-parent-rhythm i span { background: #d4b483; }
+  .fg-parent-keep > span,
+  .fg-parent-keep > .student-mark { background: #2a2418; color: #d4b483; }
+}
